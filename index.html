@@ -7,21 +7,24 @@
 	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	<script>
 		$(function(){
-			$("#i3").on("click",function(){window.location.reload();})
-			$("#i1").focus();
+			var text = text||"";
 		    var s = true;
+			$("#i3").on("click",function(){$("#i1").val("");$("#p1").html("");$("#p2").html("");$("#s1").remove();$("#s2").remove();s=true;i=1;text="";})
+			$("#i1").focus();
 			$("#i1").on("keyup",function(){
 				$("#i1").focus();
 				$("#s1").remove();
 				$("#s2").remove();
-				s = isNaN($(this).val())&&$(this).after("<span id='s1' style='color: red;'>请输入数字！</span>")||(parseInt($(this).val())<0 || parseInt($(this).val())>=100)&&$(this).after("<span id='s2' style='color: red;'>请输入0-99之间的数字</span>");
+				s = isNaN($(this).val())&&$(this).after("<p id='s1' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入数字！</p>")||(parseInt($(this).val())<0 || parseInt($(this).val())>=100)&&$(this).after("<p id='s2' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入0-99之间的数字</p>");
 				s=!s;
 			})
 			var number = Math.floor(Math.random()*100);
 			var i = 1;
 			$("#i2").on("click",()=>{
-				if(i>5){
+				text="";
+				if(i>4){
 					$("#p1").html("<span style='color: red;'>挑战结束,您失败了！正确数字为：<b style='color:green;'>"+number+"</b></span>");
+					$("#p2").append("第"+i+++"次: "+a+" "+$("#p1").html()+"<br/>");
 					// $("#i3").css("display","inline-block");
 					return false;
 				}
@@ -29,7 +32,7 @@
 				var a = $("#i1").val();
 				if(!a){return false;};
 				$("#i1").val("").focus();
-				$("#p1").html(parseInt(a)<number&&"太<span style='color: red;'>小</span>了,再试一次"||parseInt(a)>number&&"太<span style='color: red;'>大</span>了,再试一次"||parseInt(a)===number&&"<span style='color: green;'>太棒了，猜对了666~</span>");
+				$("#p1").html(parseInt(a)<number&&"太<span style='color: red;'>小</span>了,再试一次"||parseInt(a)>number&&"太<span style='color: red;'>大</span>了,再试一次"||parseInt(a)===number&&"<span style='color: green;'>太棒了,猜对了666~</span>");
 				$("#p2").append("第"+i+++"次: "+a+" "+$("#p1").html()+"<br/>");
 				if(parseInt(a)===number){
 					$("#p1").html("<span style='color: green;'>挑战成功,恭喜恭喜！</span>");
@@ -42,11 +45,12 @@
 			        $("#i2").click();
 			    }  
 			}); 
-			var text = text||"";
 			$("#p0").find("span").on("click",function(){
+				if(s==false){return false;}
+				if(s){$("#i1").val("")}
 				text += $(this).text();
 				$("#i1").val(text);
-				s = isNaN($("#i1").val())&&$("#i1").after("<span id='s1' style='color: red;'>请输入数字！</span>")||(parseInt($("#i1").val())<0 || parseInt($("#i1").val())>=100)&&$("#i1").after("<span id='s2' style='color: red;'>请输入0-99之间的数字</span>");
+				s = isNaN($("#i1").val())&&$("#i1").after("<p id='s1' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入数字！</p>")||(parseInt($("#i1").val())<0 || parseInt($("#i1").val())>=100)&&$("#i1").after("<p id='s2' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入0-99之间的数字</p>");
 				s=!s;
 			}) 
 		})
@@ -54,8 +58,7 @@
 </head>
 <body>
 	<p>一个可以猜数字的游戏，它会在1~100以内随机选择一个数, 然后让玩家挑战在5轮以内猜出这个数字，每一轮都要告诉玩家正确或者错误， 如果出错了，则告诉他数字是低了还是高了，并且还要告诉玩家之前猜的数字是什么。 一旦玩家猜测正确，或者他们用完了回合，游戏将结束。 游戏结束后，可以让玩家选择再次开始。</p>
-	<input id="i1" type="text" placeholder="请猜一个 0-99 之间的数字" name="">
-	<input id="i2" type="button" value="猜一次" name=""><input id="i3" type="button" value="重置" name="">
+	<p style="position:relative;margin-bottom:22px;"><input style="display:block;margin:0 auto;" disabled="disabled" id="i1" type="text" placeholder="请猜一个 0-99 之间的数字" name=""></p>
 	<p id="p0">
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">0</span>
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">1</span>
@@ -67,6 +70,9 @@
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">7</span>
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">8</span>
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">9</span>
+	</p>
+	<p style="text-align:center;">
+		<input style="display:inline-block;margin-right:5px;" id="i2" type="button" value="猜一次" name=""><input style="display:inline-block;" id="i3" type="button" value="重置" name="">
 	</p>
 	<p id="p1"></p>
 	<p id="p2"></p>
