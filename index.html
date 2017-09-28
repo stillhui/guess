@@ -19,13 +19,17 @@
 				s = isNaN($(this).val())&&$(this).after("<p id='s1' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入数字！</p>")||(parseInt($(this).val())<0 || parseInt($(this).val())>=100)&&$(this).after("<p id='s2' style='color: red;text-align:center;position:absolute;top:9px;left:50%;margin-left:-61px;font-size:12px;'>请输入0-99之间的数字</p>");
 				s=!s;
 			})
-			var number = Math.floor(Math.random()*100);
+			var number = Math.floor(Math.random()*100);console.log(number)
 			var i = 1;
 			$("#i2").on("click",()=>{
 				text="";
 				if(i>4){
-					$("#p1").html("<span style='color: red;'>挑战结束,您失败了！正确数字为：<b style='color:green;'>"+number+"</b></span>");
-					$("#p2").append("第"+i+++"次: "+a+" "+$("#p1").html()+"<br/>");
+					if(parseInt($("#i1").val())===number){
+						$("#p1").html("<span style='color: green;'>挑战成功,恭喜恭喜！</span>");
+						// $("#i3").css("display","inline-block");
+					}else{$("#p1").html("<span style='color: red;'>挑战结束,您失败了！正确数字为：<b style='color:green;'>"+number+"</b></span>");}
+					
+					$("#p2").append("第"+i+++"次: "+$("#i1").val()+" "+$("#p1").html()+"<br/>");
 					// $("#i3").css("display","inline-block");
 					return false;
 				}
