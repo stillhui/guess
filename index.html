@@ -22,7 +22,7 @@
 			$("#i2").on("click",()=>{
 				if(i>5){
 					$("#p1").html("<span style='color: red;'>挑战结束,您失败了！正确数字为：<b style='color:green;'>"+number+"</b></span>");
-					$("#i3").css("display","inline-block");
+					// $("#i3").css("display","inline-block");
 					return false;
 				}
 				if(s==false){return false;}
@@ -33,7 +33,7 @@
 				$("#p2").append("第"+i+++"次: "+a+" "+$("#p1").html()+"<br/>");
 				if(parseInt(a)===number){
 					$("#p1").html("<span style='color: green;'>挑战成功,恭喜恭喜！</span>");
-					$("#i3").css("display","inline-block");
+					// $("#i3").css("display","inline-block");
 				}
 			})
 			$(document).keyup(function (e) {//捕获文档对象的按键弹起事件  
@@ -55,7 +55,7 @@
 <body>
 	<p>一个可以猜数字的游戏，它会在1~100以内随机选择一个数, 然后让玩家挑战在5轮以内猜出这个数字，每一轮都要告诉玩家正确或者错误， 如果出错了，则告诉他数字是低了还是高了，并且还要告诉玩家之前猜的数字是什么。 一旦玩家猜测正确，或者他们用完了回合，游戏将结束。 游戏结束后，可以让玩家选择再次开始。</p>
 	<input id="i1" type="text" placeholder="请猜一个 0-99 之间的数字" name="">
-	<input id="i2" type="button" value="猜一次" name=""><input style="display: none;" id="i3" type="button" value="重置" name="">
+	<input id="i2" type="button" value="猜一次" name=""><input id="i3" type="button" value="重置" name="">
 	<p id="p0">
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">0</span>
 		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">1</span>
