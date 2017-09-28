@@ -9,7 +9,7 @@
 		$(function(){
 			$("#i3").on("click",function(){window.location.reload();})
 			$("#i1").focus();
-		    var s = false;
+		    var s = true;
 			$("#i1").on("keyup",function(){
 				$("#i1").focus();
 				$("#s1").remove();
@@ -29,7 +29,7 @@
 				var a = $("#i1").val();
 				if(!a){return false;};
 				$("#i1").val("").focus();
-				$("#p1").html(parseInt(a)<number&&"太<span style='color: red;'>小</span>了"||parseInt(a)>number&&"太<span style='color: red;'>大</span>了"||parseInt(a)===number&&"<span style='color: green;'>太棒了，猜对了666~</span>");
+				$("#p1").html(parseInt(a)<number&&"太<span style='color: red;'>小</span>了,再试一次"||parseInt(a)>number&&"太<span style='color: red;'>大</span>了,再试一次"||parseInt(a)===number&&"<span style='color: green;'>太棒了，猜对了666~</span>");
 				$("#p2").append("第"+i+++"次: "+a+" "+$("#p1").html()+"<br/>");
 				if(parseInt(a)===number){
 					$("#p1").html("<span style='color: green;'>挑战成功,恭喜恭喜！</span>");
@@ -41,14 +41,33 @@
 			        //此处编写用户敲回车后的代码  
 			        $("#i2").click();
 			    }  
-			});  
+			}); 
+			var text = text||"";
+			$("#p0").find("span").on("click",function(){
+				text += $(this).text();
+				$("#i1").val(text);
+				s = isNaN($("#i1").val())&&$("#i1").after("<span id='s1' style='color: red;'>请输入数字！</span>")||(parseInt($("#i1").val())<0 || parseInt($("#i1").val())>=100)&&$("#i1").after("<span id='s2' style='color: red;'>请输入0-99之间的数字</span>");
+				s=!s;
+			}) 
 		})
 	</script>
 </head>
 <body>
 	<p>一个可以猜数字的游戏，它会在1~100以内随机选择一个数, 然后让玩家挑战在5轮以内猜出这个数字，每一轮都要告诉玩家正确或者错误， 如果出错了，则告诉他数字是低了还是高了，并且还要告诉玩家之前猜的数字是什么。 一旦玩家猜测正确，或者他们用完了回合，游戏将结束。 游戏结束后，可以让玩家选择再次开始。</p>
-	<input id="i1" type="text" placeholder="请猜一个 0-99 之间的数字" name=""><br/>
-	<input id="i2" type="button" value="提交" name=""><input style="display: none;" id="i3" type="button" value="重置" name="">
+	<input id="i1" type="text" placeholder="请猜一个 0-99 之间的数字" name="">
+	<input id="i2" type="button" value="猜一次" name=""><input style="display: none;" id="i3" type="button" value="重置" name="">
+	<p id="p0">
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">0</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">1</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">2</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">3</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">4</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">5</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">6</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">7</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">8</span>
+		<span style="display: inline-block;padding: 0 3%;background-color: #333;color: #fff;">9</span>
+	</p>
 	<p id="p1"></p>
 	<p id="p2"></p>
 </body>
